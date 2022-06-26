@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector, useState } from 'react-redux';
-// import { useSelector } from 'react-redux';
+import React from 'react';
+import {useSelector} from 'react-redux';
 
-function Details(movie){
-    const dispatch = useDispatch();
-    const movies = useSelector(store => store.movies);
+function Details(){
+    const movie = useSelector(store => store.thisMovie);
+    console.log('movie received from fetchthismovie:', movie);
 
     return (
         <main>
