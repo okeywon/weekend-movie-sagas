@@ -53,25 +53,26 @@ const genres = (state = [], action) => {
 }
 
 const thisMovie = (state = {}, action) => {
-    if(action.type === 'SET_MOVIE') {
-        return action.payload;
+    switch(action.type) {
+        case 'SET_MOVIE': 
+            return action.payload;
+        default:
+            return state;
     }
-    return state;
-  }
+}
   
   // saga function for details of a certain movie clicked.
   function* fetchThisMovie(action) {
-    console.log('made it to fetchThisMovie!', action);
+    console.log('made it to fetchThisMovie!', action.payload);
     let res;
     try {
-        res = yield axios.get(`/details/${action.payload}`);
+        res = yield axios.get(`/api/movie/${action.payload}`);
         console.log('res.data', res.data);
     }
     catch (err) {
         console.error('error in fetchThisMovie', err);
         return;
     }
-    // put means dispatch();
     yield put({
         type: 'SET_MOVIE',
         payload: res.data
