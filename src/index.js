@@ -63,20 +63,21 @@ const thisMovie = (state = {}, action) => {
   
   // saga function for details of a certain movie clicked.
   function* fetchThisMovie(action) {
-    console.log('made it to fetchThisMovie!', action.payload);
-    let res;
+    console.log('made it to fetchThisMovie!', action);
     try {
-        res = yield axios.get(`/api/movie/${action.payload}`);
+        let res = yield axios.get(`/api/movie/${action.payload}`);
         console.log('res.data', res.data);
+
+        yield put({
+            type: 'SET_MOVIE',
+            payload: res.data
+        });
     }
     catch (err) {
         console.error('error in fetchThisMovie', err);
         return;
     }
-    yield put({
-        type: 'SET_MOVIE',
-        payload: res.data
-    });
+    
   }
 
 // Create one store that all components can use
